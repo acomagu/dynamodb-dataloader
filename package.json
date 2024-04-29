@@ -1,0 +1,23 @@
+{
+  "name": "@acomagu/dynamodb-dataloader",
+  "version": "1.0.0",
+  "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dynamodb-dataloader.js",
+  "types": "./dynamodb-dataloader.d.ts",
+  "scripts": {
+    "test": "node --loader ts-node/esm --test ./dynamodb-dataloader.test.ts"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-dynamodb": "^3.564.0",
+    "@aws-sdk/lib-dynamodb": "^3.564.0",
+    "@aws-sdk/util-dynamodb": "^3.564.0",
+    "@types/node": "^20.12.7",
+    "dataloader": "^2.2.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
