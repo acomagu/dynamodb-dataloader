@@ -28,6 +28,53 @@ const options = {
 const dynamodbDataLoader = new DynamodbDataLoader(tableSchemas, options); // All arguments are optional.
 ```
 
+### Propagate with Express Context
+
+Following best practices of DataLoader, a new instance of DynamodbDataLoader should be created per client request.
+
+This example inserts the dataLoader to the Request object in express middleware.
+
+```typescript
+const app = express();
+
+// Middleware to initialize DataLoader and store it in AsyncLocalStorage
+app.use((req) => {
+  req.dataLoader = new DynamodbDataLoader();
+});
+
+app.get('/user/:id', async (req, res) => {
+  const item = await req.dataLoader.getter.load({
+    TableName: "Users",
+    Key: { userId: req.params.id },
+  });
+  res.send(item);
+});
+```
+
+### Store to AsyncLocalStorage
+
+The another way to isolate DataLoader per client request is using [AsyncLocalStorage](https://nodejs.org/api/async_context.html).
+
+```typescript
+const app = express();
+
+const dynamodbDataLoaderStorage = new AsyncLocalStorage();
+
+app.use((req, res, next) => {
+  dynamodbDataLoaderStorage.run(new DynamodbDataLoader(), next);
+});
+
+app.get('/user/:id', async (req, res) => {
+  const item = await dynamodbDataLoaderStorage.getStore()!.getter.load({
+    TableName: "Users",
+    Key: { userId: req.params.id },
+  });
+  res.send(item);
+});
+```
+
+### Usage
+
 ## Fetching Data
 
 ### Get Operation
