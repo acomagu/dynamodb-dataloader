@@ -18,6 +18,7 @@
     "@types/node": "^20.12.7",
     "dataloader": "^2.2.2",
     "ts-node": "^10.9.2",
+    "typedoc": "^0.25.13",
     "typescript": "^5.4.5"
   }
 }

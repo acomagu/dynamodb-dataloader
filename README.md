@@ -71,3 +71,7 @@ const scanRequest = {
 };
 const items = await dynamodbDataLoader.scanner.load(scanRequest);
 ```
+
+### API Documentation
+
+[Documentation](https://acomagu.github.io/dynamodb-dataloader)
